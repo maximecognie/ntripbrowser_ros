@@ -55,7 +55,7 @@ class nearest_base:
         
         if mountpoints:
             self.mp = rospy.get_param('/ntrip_ros/ntrip_stream')
-
+            
             ''' Nearest base is not the current base '''
             if self.mp != mountpoints['Mountpoint']:
                 mp_index = next((i for (i,val) in enumerate(getmp) 
@@ -66,7 +66,7 @@ class nearest_base:
                     mp_dist = getmp[mp_index]['Distance']
 
                     ''' Applies Hysteresis filtering only if the current base is more than 15km away '''
-                    if mp_dist > self.crit_dist:
+                    if mp_dist > float(self.crit_dist):
                         mountpoint_dist = mountpoints['Distance']
 
                         ''' Hysteresis filter to prevent rapid mountpoint switch '''
@@ -79,10 +79,10 @@ class nearest_base:
         else:
             rospy.logwarn("No base in the area !")
 
-        mp_index = next((i for (i,val) in enumerate(getmp) 
+        nmp_index = next((i for (i,val) in enumerate(getmp) 
                 if (val['Mountpoint'] == self.mp and val['Carrier']>= 2)), None)
         rospy.loginfo("connected to MP : " + self.mp + ", at : " 
-                + str(round(getmp[mp_index]['Distance'], 3)) + "km")
+                + str(round(getmp[nmp_index]['Distance'], 3)) + "km")
 
 
 def main(args):
