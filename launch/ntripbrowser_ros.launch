@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <node pkg="ntripbrowser_ros" type="nearestMP.py" name="ntrip_browser" output="screen">
+  <!-- Name of the NavSatFix topic -->
+ 	 <param name="gps_topic" value=""/>
+  <!-- caster URL -->
+	 <param name="caster" value=""/>
+  <!-- List of exluded mountpoint e.g. [ MP1, MP2, MP3 ], default : [] -->
+     <!--param name="excluded_MP" value=""/-->
+  <!-- Connexion port, default : 2101 -->
+     <!--param name="port" value=""/-->     
+  <!-- Max distance (in km) at which you stop considering a base, default : 50 -->
+     <!--param name="max_dist" value=""/-->
+  <!-- Hysteresis (in km), default : 1 -->
+     <!--param name="hysteresis" value=""/-->
+  <!-- Distance (in km) from the base at which you start considering changing base, default : 15 -->
+     <!--param name="crit_dist" value=""/-->
+  </node>
+</launch>

@@ -9,12 +9,13 @@ from sensor_msgs.msg import NavSatFix
 class nearest_base:
 
     def __init__(self):
-        self.gps_topic = rospy.get_param('~gps_topic', 'gps')
+        self.gps_topic = rospy.get_param('~gps_topic')
+        self.caster = rospy.get_param('~caster')
         self.excluded_MP = rospy.get_param('~excluded_MP', '[]')
-        self.caster = rospy.get_param('~caster', 'caster.centipede.fr')
         self.port = rospy.get_param('~port', '2101')
         self.max_dist = rospy.get_param('~max_dist', '50')
         self.hysteresis = rospy.get_param('~hysteresis', '1')
+        self.crit_dist = rospy.get_param('~crit_dist', '15')
         self.lat = 0.0
         self.lon = 0.0
         self.mp = ''
@@ -37,8 +38,6 @@ class nearest_base:
         browser = self.browser()
         getmp = []
         mountpoints = {}
-        ''' Critical distance from which it will check if there is not a base closer '''
-        crit_dist = 15  
 
         try:
             getmp = browser.get_mountpoints()['str']
@@ -66,10 +65,10 @@ class nearest_base:
                     mp_dist = getmp[mp_index]['Distance']
 
                     ''' Applies Hysteresis filtering only if the current base is more than 15km away '''
-                    if mp_dist > crit_dist:
+                    if mp_dist > self.crit_dist:
                         mountpoint_dist = mountpoints['Distance']
 
-                        ''' Hysteresis filter to treat the case where the point is between two bases '''
+                        ''' Hysteresis filter to prevent rapid mountpoint switch '''
                         if (mp_dist + float(self.hysteresis)) > mountpoint_dist:
                             self.mp = mountpoints['Mountpoint']
                             self.set_new_MP()
