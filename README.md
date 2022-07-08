@@ -1,6 +1,7 @@
 # ntripbrowser_ros
 
-A simple ros package to find the nearest base station using ntripbrowser, 
+A simple ros package to find the nearest base station using ntripbrowser
+
 
 
 Used with : 
