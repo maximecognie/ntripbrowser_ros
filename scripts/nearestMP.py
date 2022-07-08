@@ -19,6 +19,7 @@ class nearest_base:
         self.lat = 0.0
         self.lon = 0.0
         self.mp = ''
+        self.mp_dist = 0.0
         self.sub = rospy.Subscriber(self.gps_topic, NavSatFix, self.callback)   
 
     def set_new_MP(self):
@@ -45,13 +46,13 @@ class nearest_base:
             rospy.logwarn(e)
         except UnableToConnect as e:
             rospy.logwarn(e)
-
+        
         ''' Extracting the nearest base receiving from L1-L2 carrier + not in the exclude list '''
         for i in range(len(getmp)):
             if int(getmp[i]['Carrier']) >= 2 and getmp[i]['Mountpoint'] not in self.excluded_MP:
                 mountpoints = getmp[i]
                 break
-
+        
         if mountpoints:
             self.mp = rospy.get_param('/ntrip_ros/ntrip_stream')
 
@@ -77,6 +78,11 @@ class nearest_base:
                     self.set_new_MP()
         else:
             rospy.logwarn("No base in the area !")
+
+        mp_index = next((i for (i,val) in enumerate(getmp) 
+                if (val['Mountpoint'] == self.mp and val['Carrier']>= 2)), None)
+        rospy.loginfo("connected to MP : " + self.mp + ", at : " 
+                + str(round(getmp[mp_index]['Distance'], 3)) + "km")
 
 
 def main(args):
