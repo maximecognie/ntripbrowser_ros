@@ -19,7 +19,7 @@ class nearest_base:
         self.lat = 0.0
         self.lon = 0.0
         self.mp = ''
-        self.sub = rospy.Subscriber(self.gps_topic, NavSatFix, self.callback)   
+        self.sub = rospy.Subscriber(self.gps_topic, NavSatFix, self.callback, queue_size=1)   
 
     def set_new_MP(self):
         rospy.loginfo("switching for the nearest mountpoint : " + self.mp)
