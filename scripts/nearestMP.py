@@ -75,13 +75,12 @@ class nearest_base:
                 else:
                     self.mp = mountpoints['Mountpoint']
                     self.set_new_MP()
+            nmp_index = next((i for (i,val) in enumerate(getmp) 
+                if (val['Mountpoint'] == self.mp)), None)
+            rospy.loginfo("connected to MP : " + self.mp + ", at : " 
+                + str(round(getmp[nmp_index]['Distance'], 3)) + "km")
         else:
             rospy.logwarn("No base in the area !")
-
-        nmp_index = next((i for (i,val) in enumerate(getmp) 
-                if (val['Mountpoint'] == self.mp and val['Carrier']>= 2)), None)
-        rospy.loginfo("connected to MP : " + self.mp + ", at : " 
-                + str(round(getmp[nmp_index]['Distance'], 3)) + "km")
 
 
 def main(args):
