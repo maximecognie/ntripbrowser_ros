@@ -19,7 +19,6 @@ class nearest_base:
         self.lat = 0.0
         self.lon = 0.0
         self.mp = ''
-        self.mp_dist = 0.0
         self.sub = rospy.Subscriber(self.gps_topic, NavSatFix, self.callback)   
 
     def set_new_MP(self):
@@ -55,7 +54,7 @@ class nearest_base:
         
         if mountpoints:
             self.mp = rospy.get_param('/ntrip_ros/ntrip_stream')
-            
+
             ''' Nearest base is not the current base '''
             if self.mp != mountpoints['Mountpoint']:
                 mp_index = next((i for (i,val) in enumerate(getmp) 
