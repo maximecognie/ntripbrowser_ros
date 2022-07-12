@@ -10,11 +10,13 @@
      <!--param name="excluded_MP" value=""/-->
   <!-- Connexion port, default : 2101 -->
      <!--param name="port" value=""/-->     
-  <!-- Max distance (in km) at which you stop considering a base, default : 50 -->
+  <!-- Max distance at which you stop considering a base, default : 50 (in km) -->
      <!--param name="max_dist" value=""/-->
-  <!-- Hysteresis (in km), default : 1 -->
+  <!-- Hysteresis, default : 1 (in km) -->
      <!--param name="hysteresis" value=""/-->
-  <!-- Distance (in km) from the base at which you start considering changing base, default : 15 -->
+  <!-- Distance from the base at which you start considering changing base, default : 15 (in km) -->
      <!--param name="crit_dist" value=""/-->
+  <!-- Rate at which you check for the nearest base station, default 0,2 (in Hz) (every 5s) -->
+     <!--param name="rate" value=""/-->
   </node>
 </launch>

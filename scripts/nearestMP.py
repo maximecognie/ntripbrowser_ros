@@ -16,6 +16,7 @@ class nearest_base:
         self.max_dist = rospy.get_param('~max_dist', '50')
         self.hysteresis = rospy.get_param('~hysteresis', '1')
         self.crit_dist = rospy.get_param('~crit_dist', '15')
+        self.rate = rospy.get_param('rate', '0.2')
         self.lat = 0.0
         self.lon = 0.0
         self.mp = ''
@@ -81,6 +82,7 @@ class nearest_base:
                 + str(round(getmp[nmp_index]['Distance'], 3)) + "km")
         else:
             rospy.logwarn("No base in the area !")
+        rospy.sleep(1/(float(self.rate)))
 
 
 def main(args):
