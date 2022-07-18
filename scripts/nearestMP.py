@@ -44,8 +44,10 @@ class nearest_base:
             getmp = browser.get_mountpoints()['str']
         except ExceededTimeoutError as e:
             rospy.logwarn(e)
+            return
         except UnableToConnect as e:
             rospy.logwarn(e)
+            return
         
         ''' Extracting the nearest base receiving from L1-L2 carrier + not in the exclude list '''
         for i in range(len(getmp)):
@@ -82,7 +84,7 @@ class nearest_base:
                 + str(round(getmp[nmp_index]['Distance'], 3)) + "km")
         else:
             rospy.logwarn("No base in the area !")
-        rospy.sleep(1/(float(self.rate)))
+        #rospy.sleep(1/(float(self.rate)))
 
 
 def main(args):
