@@ -84,7 +84,7 @@ class nearest_base:
                 + str(round(getmp[nmp_index]['Distance'], 3)) + "km")
         else:
             rospy.logwarn("No base in the area !")
-        #rospy.sleep(1/(float(self.rate)))
+        rospy.sleep(1/(float(self.rate)))
 
 
 def main(args):
